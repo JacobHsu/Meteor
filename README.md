@@ -1,6 +1,7 @@
 # Meteor
 
 [Meteor](https://www.meteor.com/): Build Apps with JavaScript   
+[Modulus](https://modulus.io/)  
 
 # Tutorials
 
@@ -46,3 +47,60 @@ https://github.com/DiscoverMeteor/Microscope
 >在 `/lib` 文件夾中的文件將被優先載入。  
 所有以 `main.*` 命名的文件將在其他文件載入後載入。  
 其他文件以文件名的字母順序載入。  
+
+
+`$ meteor deploy myapp.meteor.com`  
+
+### [modulus](https://modulus.io/)
+
+[Getting Started with Meteor](https://help.modulus.io/customer/portal/articles/1647770-using-meteor-with-modulus)  
+http://meteortips.com/deployment-tutorial/modulus/  
+
+`$ npm install -g modulus`  
+`$ modulus login --github`  
+`$ cd path/to/project`  
+`$ modulus deploy`  
+
+
+Return to the main dashboard.  
+Click on the project we created earlier.  
+Select the “Administration” option in the sidebar.  
+Scroll to the “Environment Variables” section.  
+`ROOT_URL http://my-meteor-project-9339.onmodulus.net`  
+
+`$ modulus env set ROOT_URL http://my-meteor-project-9339.onmodulus.net`  
+
+QA : [Modulus Deployment Error: /mnt/input/.meteor directory must exist](https://forums.meteor.com/t/modulus-deployment-error-mnt-input-meteor-directory-must-exist/22533)
+> my.modulus.io/project/xxx/admin / RUNTIME / NODE.JS (非選METEOR)
+
+
+### Spacebars
+
+Inclusion（partial）、Expression 和 Block Helper。  
+Inclusion ： `{{> templateName}} `  
+Expression ：`{{title}}`  
+Block Helper ：模板的邏輯  在模板中控制流程 `{{#each}}…{{/each}}`或 `{{#if}}…{{/if}}` 把值分配給每個變量。
+>簡單起見，採用與模板同名的方式來命名包含其 `helper` 的文件，區別是 `.js` 擴展名  
+
+Inclusion example:
+>client/main.html `{{> postsList}}`    
+client/template/posts_list.html  `<template name="postsList"></template>`    
+
+Block Helper example:
+
+>client/templates/posts_list.html
+```
+<template name="postsList">
+  <div class="posts">
+    {{#each posts}}
+      ...
+    {{/each}}
+  </div>
+</template>
+```
+client/templates/posts_list.js  
+```
+Template.postsList.helpers({
+  posts: postsData
+});
+```
