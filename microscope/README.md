@@ -2,6 +2,7 @@
 
 `meteor add iron:router`  
 `meteor add sacha:spin`  
+`meteor add session` 
 
 ### Iron Rounter
 負責處理在 HTML <body> 標籤裡面該呈現什麼  
