@@ -2,7 +2,8 @@
 
 ## [Creating your first app simple-todos](https://www.meteor.com/tutorials/blaze/creating-an-app)  
 
-
+# packages
+`$ meteor add reactive-dict`
 
 # Mongo Shell
 
