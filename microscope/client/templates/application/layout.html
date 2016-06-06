@@ -1,12 +1,13 @@
 <!-- packages: Iron Router 負責處理在 HTML <body> 標籤裡面該呈現什麼 -->
 <template name="layout">
   <div class="container">
-    <header class="navbar navbar-default" role="navigation">
+    <!-- <header class="navbar navbar-default" role="navigation">
       <div class="navbar-header">
-        <!-- <a class="navbar-brand" href="/">Microscope</a> -->
         <a class="navbar-brand" href="{{pathFor 'postsList'}}">Microscope {{pageTitle}}</a>
       </div>
-    </header>
+    </header> -->
+    <!-- client/templates/includes/header.html -->
+    {{> header}}
     <div id="main" class="row-fluid">
       {{> yield}}
     </div>

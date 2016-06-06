@@ -2,7 +2,32 @@
 
 `meteor add iron:router`  
 `meteor add sacha:spin`  
-`meteor add session` 
+`meteor add session`  
+`meteor add ian:accounts-ui-bootstrap-3`  
+`meteor add accounts-password`  
+
+### [accounts-password](https://atmospherejs.com/meteor/accounts-password)  
+
+A login service that enables secure password-based login.  
+
+Browser Console
+```
+>Meteor.users.findOne();
+>Meteor.user()
+Object {_id: "siHzwXwA5ceRCs2Bn", profile: Object, username: "jacobhsu"}
+>Meteor.users.find().count();
+1
+```
+
+Mongo Shell  
+```
+meteor:PRIMARY> db.users.count()
+2
+meteor:PRIMARY> db.users.find()
+{ "_id" : "siHzwXwA5ceRCs2Bn", ... }
+{ "_id" : "xcMXm36RhEs5tHMBC", ... }
+```
+
 
 ### Iron Rounter
 負責處理在 HTML <body> 標籤裡面該呈現什麼  
