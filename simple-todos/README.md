@@ -3,7 +3,9 @@
 ## [Creating your first app simple-todos](https://www.meteor.com/tutorials/blaze/creating-an-app)  
 
 # packages
-`$ meteor add reactive-dict`
+`$ meteor add reactive-dict`  
+`$ meteor add accounts-ui accounts-password`  
+`$ meteor add accounts-facebook`  
 
 # Mongo Shell
 
