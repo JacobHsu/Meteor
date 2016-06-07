@@ -8,6 +8,18 @@ Posts = new Mongo.Collection('posts');
 //     return !! userId;
 //   }
 // });
+Posts.allow({
+  update: function(userId, post) { return ownsDocument(userId, post); },
+  remove: function(userId, post) { return ownsDocument(userId, post); }
+});
+// 確保用戶只能編輯特定的字段
+Posts.deny({
+  update: function(userId, post, fieldNames) {
+    // 只允許更改帖子的某些屬性。只能更改如下兩個字段：
+    // 使用 Underscore 的 without() 方法返回一個不包含 url 和 title 字段的子數組。
+    return (_.without(fieldNames, 'url', 'title').length > 0);
+  }
+});
 
 Meteor.methods({
   postInsert: function(postAttributes) {

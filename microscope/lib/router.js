@@ -13,6 +13,11 @@ Router.route('/posts/:_id', {
   data: function() { return Posts.findOne(this.params._id); } // 指定一個數據源  URL 上獲取 _id
 });
 
+Router.route('/posts/:_id/edit', {
+  name: 'postEdit',
+  data: function() { return Posts.findOne(this.params._id); }
+});
+
 
 Router.route('/submit', {name: 'postSubmit'}); //新帖子的提交
 
