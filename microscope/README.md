@@ -6,6 +6,8 @@
 `meteor add ian:accounts-ui-bootstrap-3`  
 `meteor add accounts-password`
 `meteor remove insecure`  //恢復數據安全
+`meteor add audit-argument-checks` //安全檢查
+
 
 ### [accounts-password](https://atmospherejs.com/meteor/accounts-password)  
 
