@@ -13,4 +13,17 @@ Router.route('/posts/:_id', {
   data: function() { return Posts.findOne(this.params._id); } // 指定一個數據源  URL 上獲取 _id
 });
 
+
+Router.route('/submit', {name: 'postSubmit'}); //新帖子的提交
+
+// 沒有登錄，呈現出來的是 accessDenied 模板
+var requireLogin = function() {
+  if (! Meteor.user()) {
+    this.render('accessDenied');
+  } else {
+    this.next();
+  }
+}
+
 Router.onBeforeAction('dataNotFound', {only: 'postPage'}); // dataNotFound hook
+Router.onBeforeAction(requireLogin, {only: 'postSubmit'});

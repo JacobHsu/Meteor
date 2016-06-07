@@ -73,6 +73,9 @@ Scroll to the “Environment Variables” section.
 QA : [Modulus Deployment Error: /mnt/input/.meteor directory must exist](https://forums.meteor.com/t/modulus-deployment-error-mnt-input-meteor-directory-must-exist/22533)
 > my.modulus.io/project/xxx/admin / RUNTIME / NODE.JS (非選METEOR)
 
+### Collection  
+`$ meteor reset`  
+Project reset.  
 
 ### Spacebars
 

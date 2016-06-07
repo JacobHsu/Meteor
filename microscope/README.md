@@ -4,7 +4,8 @@
 `meteor add sacha:spin`  
 `meteor add session`  
 `meteor add ian:accounts-ui-bootstrap-3`  
-`meteor add accounts-password`  
+`meteor add accounts-password`
+`meteor remove insecure`  //恢復數據安全
 
 ### [accounts-password](https://atmospherejs.com/meteor/accounts-password)  
 
@@ -34,3 +35,9 @@ meteor:PRIMARY> db.users.find()
 
 `loadingTemplate: 'loading'` 自帶了一個延緩顯示模板的方法
 `notFoundTemplate: 'notFound' ` 解決當某用戶輸入錯誤的 URL 時的情況  
+
+# Debug
+
+> Error: A method named '/posts/insert' is already defined
+
+ 用了重複 new Mongo.Collection('posts')

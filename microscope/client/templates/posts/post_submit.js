@@ -1,0 +1,21 @@
+Template.postSubmit.events({
+  'submit form': function(e) {
+    e.preventDefault(); // 確保瀏覽器不會再繼續嘗試提交表單
+
+    var post = {
+      url: $(e.target).find('[name=url]').val(),
+      title: $(e.target).find('[name=title]').val()
+    };
+
+    //post._id = Posts.insert(post);
+    //Router.go('postPage', post);
+
+    Meteor.call('postInsert', post, function(error, result) {
+    // 顯示錯誤信息並退出
+    if (error)
+        return alert(error.reason);
+      Router.go('postPage', {_id: result._id});
+    });
+
+  }
+});
