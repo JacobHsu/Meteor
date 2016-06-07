@@ -6,8 +6,8 @@
 `meteor add ian:accounts-ui-bootstrap-3`  
 `meteor add accounts-password`
 `meteor remove insecure`  //恢復數據安全
-`meteor add audit-argument-checks` //安全檢查
-
+`meteor add audit-argument-checks` //安全檢查  
+`meteor add check`  
 
 ### [accounts-password](https://atmospherejs.com/meteor/accounts-password)  
 
@@ -40,6 +40,10 @@ meteor:PRIMARY> db.users.find()
 
 # Debug
 
-> Error: A method named '/posts/insert' is already defined
+> Error: A method named '/posts/insert' is already defined  
 
  用了重複 new Mongo.Collection('posts')
+
+ >  Exception while invoking method 'postInsert' ReferenceError: [check is not defined](https://github.com/meteor/meteor/issues/5258)  
+ 
+ `meteor add check`  
