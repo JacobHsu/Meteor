@@ -7,6 +7,8 @@
 `$ meteor add accounts-ui accounts-password`  
 `$ meteor add accounts-facebook`  
 
+`$ meteor remove insecure`  
+
 # Mongo Shell
 
 console1 : `$ meteor`  
@@ -30,3 +32,9 @@ Running on an Android emulator
 `$ meteor add-platform android`  
 `$ meteor run android`  
 `$ meteor run android-device`  
+
+# Optimistic UI
+
+When you call a method on the client using `Meteor.call`, two things happen in parallel:  
+1. The client sends a request to the server to run the method in a secure environment, just like an AJAX request would work  
+2. A simulation of the method runs directly on the client to attempt to predict the outcome of the server call using the available information  
