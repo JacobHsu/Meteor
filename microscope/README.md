@@ -31,6 +31,13 @@ meteor:PRIMARY> db.users.find()
 { "_id" : "xcMXm36RhEs5tHMBC", ... }
 ```
 
+# Callback function
+
+一個成功的 `insert` 操作要求
+至少一個返回 `true` 的允許 `allow` 回調函數，
+並且所有拒絕 `deny` 回調函數都返回 `false`。
+
+更直觀地說，`Meteor` 從拒絕回調函數開始，然後是 `allow` 函數，逐一執行，直到有一個返回 `true`。
 
 ### Iron Rounter
 負責處理在 HTML <body> 標籤裡面該呈現什麼  
@@ -45,5 +52,5 @@ meteor:PRIMARY> db.users.find()
  用了重複 new Mongo.Collection('posts')
 
  >  Exception while invoking method 'postInsert' ReferenceError: [check is not defined](https://github.com/meteor/meteor/issues/5258)  
- 
+
  `meteor add check`  
