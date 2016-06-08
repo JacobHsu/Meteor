@@ -1,3 +1,6 @@
+[Microscope github](https://github.com/DiscoverMeteor/Microscope)
+[DiscoverMeteor_zh](https://github.com/DiscoverMeteor/DiscoverMeteor_zh)  
+
 # packages
 
 `meteor add iron:router`  

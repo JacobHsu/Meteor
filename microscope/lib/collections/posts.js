@@ -12,6 +12,10 @@ Posts.allow({
   update: function(userId, post) { return ownsDocument(userId, post); },
   remove: function(userId, post) { return ownsDocument(userId, post); }
 });
+
+//當添加多個 deny 回調時，如果任何一個回調返回 true，運行就會失敗。
+//在此例中，這意味著 update 只有在 [1]面向 title 和 url 兩個字段時才會成功，並且[2]這些字段不能為空。
+
 // 確保用戶只能編輯特定的字段
 Posts.deny({
   update: function(userId, post, fieldNames) {
@@ -20,6 +24,26 @@ Posts.deny({
     return (_.without(fieldNames, 'url', 'title').length > 0);
   }
 });
+
+// 服務器端驗證帖子
+Posts.deny({
+  update: function(userId, post, fieldNames, modifier) {
+    var errors = validatePost(modifier.$set);
+    return errors.title || errors.url;
+  }
+});
+
+validatePost = function (post) {
+  var errors = {};
+
+  if (!post.title)
+    errors.title = "Please fill in a headline";
+
+  if (!post.url)
+    errors.url =  "Please fill in a URL";
+
+  return errors;
+}
 
 Meteor.methods({
   postInsert: function(postAttributes) {
@@ -30,6 +54,11 @@ Meteor.methods({
       title: String,
       url: String
     });
+
+    // 服務器端驗證
+    var errors = validatePost(postAttributes);
+    if (errors.title || errors.url)
+      throw new Meteor.Error('invalid-post', "You must set a title and URL for your post");
 
     // 防止重複 引導用戶到已存在的帖子上。
     var postWithSameLink = Posts.findOne({url: postAttributes.url});
