@@ -7,8 +7,14 @@ export const Tasks = new Mongo.Collection('tasks');
 // Add publication for tasks
 if (Meteor.isServer) {
   // This code only runs on the server
+  // Only publish tasks that are public or belong to the current user
   Meteor.publish('tasks', function tasksPublication() {
-    return Tasks.find();
+    return Tasks.find({
+      $or: [
+        { private: { $ne: true } },
+        { owner: this.userId },
+      ],
+    });
   });
 }
 
@@ -31,12 +37,41 @@ Meteor.methods({
   'tasks.remove'(taskId) {
     check(taskId, String);
 
+    // only the task owner can delete or check off a private task:
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can delete it
+      throw new Meteor.Error('not-authorized');
+    }
+
     Tasks.remove(taskId);
   },
   'tasks.setChecked'(taskId, setChecked) {
     check(taskId, String);
     check(setChecked, Boolean);
 
+    // only the task owner can delete or check off a private task:
+    const task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can check it off
+      throw new Meteor.Error('not-authorized');
+    }
+
     Tasks.update(taskId, { $set: { checked: setChecked } });
   },
+  // Define method to set tasks to private
+  'tasks.setPrivate'(taskId, setToPrivate) {
+    check(taskId, String);
+    check(setToPrivate, Boolean);
+
+    const task = Tasks.findOne(taskId);
+
+    // Make sure only the task owner can make a task private
+    if (task.owner !== Meteor.userId()) {
+      throw new Meteor.Error('not-authorized');
+    }
+
+    Tasks.update(taskId, { $set: { private: setToPrivate } });
+  },
+
 });
