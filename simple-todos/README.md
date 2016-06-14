@@ -8,6 +8,7 @@
 `$ meteor add accounts-facebook`  
 
 `$ meteor remove insecure`  
+`$ meteor remove autopublish`
 
 # Mongo Shell
 

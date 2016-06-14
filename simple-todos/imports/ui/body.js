@@ -9,6 +9,13 @@ Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
 });
 
+// Subscribe to tasks
+Template.body.onCreated(function bodyOnCreated() {
+  this.state = new ReactiveDict();
+  Meteor.subscribe('tasks');
+})
+
+
 // Template.body.helpers({
 //   tasks: [
 //     { text: 'This is task 1' },
