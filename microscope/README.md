@@ -25,6 +25,12 @@ Object {_id: "siHzwXwA5ceRCs2Bn", profile: Object, username: "jacobhsu"}
 1
 ```
 
+```
+>Posts.findOne();  
+>Posts.find().fetch()   
+>Comments.findOne();  
+```
+
 Mongo Shell  
 ```
 meteor:PRIMARY> db.users.count()
