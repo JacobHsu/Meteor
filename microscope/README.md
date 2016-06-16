@@ -29,6 +29,9 @@ Object {_id: "siHzwXwA5ceRCs2Bn", profile: Object, username: "jacobhsu"}
 >Posts.findOne();  
 >Posts.find().fetch()   
 >Comments.findOne();  
+>Notifications.findOne();    
+>Notifications.find().fetch();  
+>Notifications.find().count(); 
 ```
 
 Mongo Shell  
@@ -63,3 +66,8 @@ meteor:PRIMARY> db.users.find()
  >  Exception while invoking method 'postInsert' ReferenceError: [check is not defined](https://github.com/meteor/meteor/issues/5258)  
 
  `meteor add check`  
+
+ # Publications and Subscriptions
+
+ server/publications.js 發布  
+ lib/router.js 訂閱  
