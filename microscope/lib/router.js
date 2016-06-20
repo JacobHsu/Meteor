@@ -15,7 +15,7 @@ PostsListController = RouteController.extend({
     return parseInt(this.params.postsLimit) || this.increment;
   },
   findOptions: function() {
-    return {sort: {submitted: -1}, limit: this.postsLimit()};
+    return {sort: this.sort, limit: this.postsLimit()};
   },
   subscriptions: function() {
     this.postsSub = Meteor.subscribe('posts', this.findOptions());
@@ -25,15 +25,34 @@ PostsListController = RouteController.extend({
   },
   data: function() {
     var hasMore = this.posts().count() === this.postsLimit();
-    var nextPath = this.route.path({postsLimit: this.postsLimit() + this.increment});
+    //var nextPath = this.route.path({postsLimit: this.postsLimit() + this.increment});
     return {
       posts: this.posts(),
       ready: this.postsSub.ready,
-      nextPath: hasMore ? nextPath : null
+      nextPath: hasMore ? this.nextPath() : null
     };
   }
 });
 
+// 多個路由,我們將 next Path 邏輯從 Lists ListController 移到 NewPostsController 和 BestPostsController, 因為兩個控制器的 path 都不相同。
+NewPostsController = PostsListController.extend({
+  sort: {submitted: -1, _id: -1},
+  nextPath: function() {
+    return Router.routes.newPosts.path({postsLimit: this.postsLimit() + this.increment})
+  }
+});
+BestPostsController = PostsListController.extend({
+  sort: {votes: -1, submitted: -1, _id: -1},
+  nextPath: function() {
+    return Router.routes.bestPosts.path({postsLimit: this.postsLimit() + this.increment})
+  }
+});
+Router.route('/', {
+  name: 'home',
+  controller: NewPostsController
+});
+Router.route('/new/:postsLimit?', {name: 'newPosts'});
+Router.route('/best/:postsLimit?', {name: 'bestPosts'});
 
 Router.route('/posts/:_id', {
   name: 'postPage', //  映射到 postPage 模板 post_page.html
@@ -57,9 +76,9 @@ Router.route('/posts/:_id/edit', {
 
 // Router.route('/', {name: 'postsList'}); //映射到 postsList 模板  post_list.html
 // 參數後面的 ? 表示參數是可選的
-Router.route('/:postsLimit?', {
-  name: 'postsList'
-});
+// Router.route('/:postsLimit?', {
+//   name: 'postsList'
+// });
 Router.route('/submit', {name: 'postSubmit'}); //新帖子的提交
 
 // 沒有登錄，呈現出來的是 accessDenied 模板

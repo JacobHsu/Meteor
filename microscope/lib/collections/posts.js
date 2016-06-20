@@ -86,6 +86,7 @@ Meteor.methods({
     };
   },
 
+  //從數據庫中找到帖子。 檢查用戶是否已經投票。 如果沒有，用戶可以投一票。
   upvote: function(postId) {
     check(this.userId, String);
     check(postId, String);

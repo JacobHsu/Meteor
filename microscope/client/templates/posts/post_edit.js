@@ -43,7 +43,8 @@ Template.postEdit.events({
     if (confirm("Delete this post?")) { // 然後提示確認窗口
       var currentPostId = this._id;
       Posts.remove(currentPostId);
-      Router.go('postsList');
+      //Router.go('postsList');
+      Router.go('home');
     }
   }
 });
